@@ -1,0 +1,110 @@
+---
+title: "R Notebook to summarize the solutions for the extra exercises of R-Tutor"
+output: html_notebook
+---
+
+You can find the original tutorials here: 
+http://www.r-tutor.com/elementary-statistics 
+
+
+## Frequency Distribution of Qualitative Data 
+http://www.r-tutor.com/elementary-statistics/qualitative-data/frequency-distribution-qualitative-data
+
+```{r}
+library(MASS)
+head(painters)
+
+```
+
+
+1) Find the frequency distribution of the composition scores in painters. 
+
+```{r}
+composition = painters$Composition
+composition.freq = table(composition)
+cbind(composition.freq)
+
+```
+
+
+2) Find programmatically the school that has the most painters. 
+
+```{r}
+school = painters$School
+school.freq = table(school)
+most_painters = max(school.freq)
+most_painters
+
+```
+
+
+## Relative Frequency Distribution of Qualitative Data
+http://www.r-tutor.com/elementary-statistics/qualitative-data/relative-frequency-distribution-qualitative-data
+
+
+1) Find the relative frequency distribution of the composition scores in painters.
+
+```{r}
+old=options(digits = 1) #setting significant digits to 1
+
+composition.relfreq = composition.freq / nrow(painters)
+cbind(composition.relfreq)
+
+options(old) #resetting old settings
+```
+
+## Bar Graph
+http://www.r-tutor.com/elementary-statistics/qualitative-data/bar-graph
+
+```{r setting colors}
+colors = c("red", "yellow", "green", "violet", "orange", "blue", "pink", "cyan") 
+```
+
+
+1) Find the bar graph of the composition scores in painters.
+
+```{r}
+barplot(composition.freq, col = colors)
+```
+
+## Pie Chart
+http://www.r-tutor.com/elementary-statistics/qualitative-data/pie-chart
+
+1) Find the pie chart of the composition scores in painters.
+
+```{r}
+pie(composition.freq, col = colors)
+```
+
+## Category Statistics
+http://www.r-tutor.com/elementary-statistics/qualitative-data/category-statistics
+
+```{r}
+school = painters$School
+c_school = school == "C" 
+c_painters = painters[c_school, ]  # child data set
+mean(c_painters$Composition) 
+```
+```{r}
+tapply(painters$Composition, painters$School, mean) 
+```
+
+
+1) Find programmatically the school with the highest composition scores.
+
+```{r}
+max_comp = tapply(painters$Composition, painters$School, max)
+max_comp[which(max_comp %in% c(max(max_comp)))]
+```
+
+
+2) Find the percentage of painters whose color score is equal to or above 14.
+
+```{r}
+above14 = sum(painters$Colour >= 14)
+all_painters = nrow(painters)
+
+perc = above14 / all_painters * 100
+sprintf("Painters with a Colour Score above 14: %.2f %%", perc)
+```
+
