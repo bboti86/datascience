@@ -228,4 +228,117 @@ abline(lm(waits ~ duration))
 ```
 
 # Numerical Measures
+http://www.r-tutor.com/elementary-statistics/numerical-measures
 
+1) Find the mean eruption waiting periods in faithful.
+
+```{r}
+mean(waits)
+```
+
+## Median
+
+```{r}
+median(waits)
+```
+
+## Quartile
+
+1) Find the quartiles of the eruption waiting periods in faithful.
+
+```{r}
+quantile(waits)
+```
+
+## Percentile 
+
+```{r}
+quantile(waits, c(.17, .43, .67, .85))
+```
+
+## Range
+
+1) Find the range of the eruption waiting periods in faithful.
+
+```{r}
+max(waits) - min(waits)
+```
+
+## Interquartile Range
+
+1) Find the interquartile range of eruption waiting periods in faithful.
+
+
+```{r}
+IQR(waits)
+```
+
+## Box Plot
+
+1) Find the box plot of the eruption waiting periods in faithful.
+
+```{r}
+boxplot(waits, horizontal = TRUE)
+```
+
+## Variance 
+
+1) Find the variance of the eruption waiting periods in faithful.
+
+```{r}
+var(waits)
+```
+
+## Standard Deviation
+
+1) Find the standard deviation of the eruption waiting periods in faithful.
+
+```{r}
+sd(waits)
+```
+
+## Covariance 
+
+```{r}
+cov(duration, waits)
+```
+
+## Correlation Coefficient
+
+```{r}
+cor(duration, waits)
+```
+
+## Central Moment
+
+```{r}
+# install.package("moments")
+```
+
+
+1) Find the third central moment of eruption waiting period in faithful.
+
+```{r}
+library(moments)
+moment(waits, order = 3, central = TRUE)
+```
+
+## Skewness
+
+1) Find the skewness of eruption waiting period in faithful.
+
+```{r}
+skewness(waits)
+```
+
+## Kurtosis
+
+1) Find the excess kurtosis of eruption waiting period in faithful.
+
+
+```{r}
+kurtosis(waits)
+```
+
+# Probability Distributions
+https://www.r-tutor.com/elementary-statistics/probability-distributions
