@@ -7,6 +7,8 @@ You can find the original tutorials here:
 http://www.r-tutor.com/elementary-statistics 
 
 
+# Qualitative Data
+
 ## Frequency Distribution of Qualitative Data 
 http://www.r-tutor.com/elementary-statistics/qualitative-data/frequency-distribution-qualitative-data
 
@@ -107,4 +109,123 @@ all_painters = nrow(painters)
 perc = above14 / all_painters * 100
 sprintf("Painters with a Colour Score above 14: %.2f %%", perc)
 ```
+
+# Quantitative Data
+
+```{r}
+head(faithful)
+```
+
+## Frequency Distribution of Quantitative Data
+
+1) Find the frequency distribution of the eruption waiting periods in faithful.
+
+```{r}
+waits = faithful$waiting
+# range(waits) # min = 43; max = 96
+wbreaks = seq(40, 100, by = 5)
+waits.cut = cut(waits, wbreaks, right = FALSE)
+waits.freq = table(waits.cut)
+cbind(waits.freq)
+```
+
+2) Find programmatically the duration sub-interval that has the most eruptions.
+
+```{r}
+head(duration.freq[order(-duration.freq)],1)
+```
+
+
+## Histogram
+```{r}
+colors = c("red", "yellow", "green", "violet", "orange", "blue", "pink", "cyan") 
+```
+
+1) Find the histogram of the eruption waiting period in faithful.
+
+
+```{r}
+hist(waits, right = FALSE, col = colors, main = "Old Faithful Waiting durations", xlab = "Waits in minutes")
+```
+
+## Relative Frequency Distribution of Quantitative Data
+
+1) Find the relative frequency distribution of the eruption waiting periods in faithful.
+
+```{r}
+old = options(digits = 1)
+
+waits.relfreq = waits.freq / nrow(faithful)
+#waits.relfreq
+cbind(waits.freq, waits.relfreq)
+
+options(old)
+```
+
+## Cumulative Frequency Distribution
+https://www.r-tutor.com/elementary-statistics/quantitative-data/cumulative-frequency-distribution
+
+1) Find the cumulative frequency distribution of the eruption waiting periods in faithful.
+
+```{r}
+waits.cumfreq = cumsum(waits.freq)
+cbind(waits.freq, waits.cumfreq)
+```
+
+## Cumulative Frequency Graph
+
+1) Find the cumulative frequency graph of the eruption waiting periods in faithful.
+
+
+```{r}
+cumfreq0_w = c(0, waits.cumfreq)
+plot(wbreaks, cumfreq0_w, main = "Old Faithful Waiting times", xlab = "Waiting Minutes", ylab = "Cumulative Waiting")
+lines(wbreaks,cumfreq0_w)
+```
+
+## Cumulative Relative Frequency Distribution
+
+1) Find the cumulative frequency distribution of the eruption waiting periods in faithful.
+
+```{r}
+old = options(digits = 2)
+
+waits.cumrelfreq = waits.cumfreq / nrow(faithful)
+cbind(waits.cumfreq, waits.cumrelfreq)
+
+options(old)
+```
+
+## Cumulative Relative Frequency Graph
+
+1) Find the cumulative relative frequency graph of the eruption waiting periods in faithful.
+
+```{r}
+cumrelfreq0_w = c(0, waits.cumrelfreq)
+plot(wbreaks, cumrelfreq0_w, main = "Old Faithful Waiting times", xlab = "Waiting minutes", ylab = "Cumulative waiting proportions")
+lines(wbreaks, cumrelfreq0_w)
+```
+
+Alternatively: 
+```{r}
+Fn_w = ecdf(waits)
+plot(Fn_w, main = "Old Faithful Waiting times", xlab = "Waiting minutes", ylab = "Cumulative waiting proportions")
+```
+
+## Stem-and-Leaf Plot
+
+1) Find the stem-and-leaf plot of the eruption waiting periods in faithful.
+
+```{r}
+stem(waits)
+```
+
+## Scatter Plot
+
+```{r}
+plot(duration, waits, xlab = "Eruption duration", ylab = "Time waited", main = "Scatter plot of Durations vs Waiting times")
+abline(lm(waits ~ duration))
+```
+
+# Numerical Measures
 
